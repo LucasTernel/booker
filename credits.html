@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crédits — BOOKER Wrestling</title>
+  <meta name="description" content="Crédits du site BOOKER Wrestling : logos, visuels, ceintures, polices et réalisation.">
+  <link rel="canonical" href="https://booker.lucasternel.com/credits.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BOOKER Wrestling">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Crédits — BOOKER Wrestling">
+  <meta property="og:description" content="Crédits du site BOOKER Wrestling : logos, visuels, ceintures, polices et réalisation.">
+  <meta property="og:url" content="https://booker.lucasternel.com/credits.html">
+  <!-- Favicons : le coin du ring -->
+  <link rel="icon" href="assets/favicons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicons/favicon.ico" sizes="48x48">
+  <link rel="icon" href="assets/favicons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/favicons/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicons/apple-touch-icon.png">
+  <link rel="manifest" href="assets/favicons/site.webmanifest">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0b0f" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600&display=swap">
+  <link rel="stylesheet" href="css/main.css?v=b4041a03">
+</head>
+<body id="top">
+
+  <header class="site-header">
+    <a href="index.html" class="brand" aria-label="BOOKER, retour en haut de page">
+      <img class="brand__logo--sombre" src="img/booker-logo.svg" alt="BOOKER" width="129" height="60">
+      <img class="brand__logo--clair" src="img/booker-logo-clair.svg" alt="BOOKER" width="129" height="60">
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <!-- Menu burger (mobile) : Popover API, sans JavaScript pour l'ouverture -->
+      <button class="burger" type="button" popovertarget="menu" aria-label="Menu"><span class="burger__bar" aria-hidden="true"></span></button>
+      <ul class="nav__list" id="menu" popover>
+        <li><a class="nav__link" href="index.html#federation">Fédération</a></li>
+        <li><a class="nav__link" href="index.html#programme">Programme</a></li>
+        <li><a class="nav__link" href="index.html#titres">Ceintures</a></li>
+        <li><a class="nav__link" href="index.html#lutteurs">Lutteurs</a></li>
+        <li><a class="nav__link" href="index.html#billetterie">Billetterie</a></li>
+        <li><a class="nav__link" href="index.html#actus">Actus</a></li>
+        <li><a class="nav__link" href="index.html#faq">FAQ</a></li>
+      </ul>
+      <!-- Panneau Accessibilité (Popover API) : thème + taille du texte -->
+      <button class="a11y-btn" type="button" popovertarget="a11y" aria-label="Accessibilité"><span class="a11y-btn__short" aria-hidden="true">Aa</span><span class="a11y-btn__long" aria-hidden="true">Accessibilité</span></button>
+    </nav>
+  </header>
+
+
+  <!-- Réglages d'accessibilité : radios + :has() (tokens.css, base.css), mémorisés par js/main.js -->
+  <div class="a11y" id="a11y" popover role="group" aria-label="Réglages d'accessibilité">
+    <p class="a11y__title">Accessibilité</p>
+    <fieldset>
+      <legend>Thème</legend>
+      <label class="choice"><input type="radio" name="theme" id="theme-auto" checked>Auto</label>
+      <label class="choice"><input type="radio" name="theme" id="theme-clair">Clair</label>
+      <label class="choice"><input type="radio" name="theme" id="theme-sombre">Sombre</label>
+    </fieldset>
+    <fieldset>
+      <legend>Taille du texte</legend>
+      <label class="choice"><input type="radio" name="taille" id="taille-0" aria-label="Texte normal" checked>A</label>
+      <label class="choice"><input type="radio" name="taille" id="taille-1" aria-label="Texte agrandi 1 fois">A+</label>
+      <label class="choice"><input type="radio" name="taille" id="taille-2" aria-label="Texte agrandi 2 fois">A++</label>
+      <label class="choice"><input type="radio" name="taille" id="taille-3" aria-label="Texte agrandi 3 fois">A+++</label>
+    </fieldset>
+    <button class="btn a11y__close" type="button" popovertarget="a11y" popovertargetaction="hide">Fermer</button>
+  </div>
+
+  <main class="container">
+    <article class="section legal">
+      <p class="eyebrow">Sources</p>
+      <h1 class="legal__title">Crédits <span class="outline-text">images et polices.</span></h1>
+      <p class="legal__date">Dernière mise à jour : <time datetime="2026-11-13">13 novembre 2026</time></p>
+      <section>
+        <h2>Logos et identité visuelle</h2>
+        <p>Charte graphique, logo BOOKER et logos des trois shows (<strong>Prelude to Chaos</strong>, <strong>Rising Empire</strong>, <strong>Final Chapter</strong>) : réalisés par Lucas TERNEL pour la fédération BOOKER Wrestling. Favicon : le coin du ring, extrait du logo BOOKER.</p>
+      </section>
+      <section>
+        <h2>Ceintures</h2>
+        <p>Booker Universal Championship et IUT de Lens Undisputed Championship : visuels du jeu BOOKER. Les quatre autres titres sont présentés sous forme de plaques typographiques créées en CSS.</p>
+      </section>
+      <section>
+        <h2>Lutteurs</h2>
+        <p>Cartes des lutteurs : fond noir et logo BOOKER, initiales et jauges créés en CSS. Portraits de Lucas Ternel et de l'équipe pédagogique de l'IUT de Lens : photos fournies par l'éditeur du site. Photo du Détrompeur de la salle 103F : pièce fournie par l'équipe, détourée pour le site.</p>
+      </section>
+      <section>
+        <h2>Photos des catcheurs</h2>
+        <p>Photos sous licence libre <strong>CC BY 2.0</strong>, tirées de Wikimedia Commons. Modifications apportées : détourage du sujet (fond retiré) et recadrage. Aucune approbation des personnes photographiées ni des auteurs n'est sous-entendue.</p>
+        <ul><li><strong>Roman Reigns</strong> : « Roman Reigns RR25 (1) (headshot).jpg », par Diego Serrano, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a>, source : <a href="https://commons.wikimedia.org/wiki/File:Roman_Reigns_RR25_(1)_(headshot).jpg" rel="noopener">Wikimedia Commons</a>.</li><li><strong>Cody Rhodes</strong> : « Cody Rhodes, April 2024 (cropped).jpg », par Diego Serrano, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a>, source : <a href="https://commons.wikimedia.org/wiki/File:Cody_Rhodes,_April_2024_(cropped).jpg" rel="noopener">Wikimedia Commons</a>.</li><li><strong>CM Punk</strong> : « CM Punk CC2012 (cropped).jpg », par Pat Loika, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a>, source : <a href="https://commons.wikimedia.org/wiki/File:CM_Punk_CC2012_(cropped).jpg" rel="noopener">Wikimedia Commons</a>.</li><li><strong>Rhea Ripley</strong> : « Rhea Ripley, April 2024 (cropped).jpg », par Diego Serrano, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a>, source : <a href="https://commons.wikimedia.org/wiki/File:Rhea_Ripley,_April_2024_(cropped).jpg" rel="noopener">Wikimedia Commons</a>.</li><li><strong>Kenny Omega</strong> : « Kenny Omega October 2019.jpg », par grenwail, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a>, source : <a href="https://commons.wikimedia.org/wiki/File:Kenny_Omega_October_2019.jpg" rel="noopener">Wikimedia Commons</a>.</li><li><strong>Jon Moxley</strong> : « Jon Moxley at AEW Dynamite (cropped).jpg », par PJ McDonnell, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a>, source : <a href="https://commons.wikimedia.org/wiki/File:Jon_Moxley_at_AEW_Dynamite_(cropped).jpg" rel="noopener">Wikimedia Commons</a>.</li></ul>
+      </section>
+      <section>
+        <h2>Polices</h2>
+        <ul><li><strong>Bebas Neue</strong> (titres) : Ryoichi Tsunekawa, licence SIL Open Font License 1.1, via Google Fonts.</li><li><strong>Montserrat</strong> (texte) : Julieta Ulanovsky et contributeurs, licence SIL Open Font License 1.1, via Google Fonts.</li></ul>
+      </section>
+      <section>
+        <h2>Icônes et décor</h2>
+        <p>Aucune bibliothèque d'icônes. Grain, projecteurs, cordes du ring et formes obliques : CSS pur (dégradés et SVG en ligne).</p>
+      </section>
+      <section>
+        <h2>Noms cités</h2>
+        <p>Les noms de catcheurs professionnels et ceux de l'équipe pédagogique de l'IUT de Lens sont cités à titre humoristique : voir les <a href="mentions-legales.html">mentions légales</a>.</p>
+      </section>
+      <section>
+        <h2>Réalisation</h2>
+        <p>Conception, intégration HTML et CSS : Lucas Ternel (BUT MMI, IUT de Lens). CSS natif sans framework ni préprocesseur ; un seul fichier JavaScript de 15 lignes.</p>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__top">
+      <a class="site-footer__logo" href="index.html" aria-label="BOOKER Wrestling, retour à l'accueil">
+        <img src="img/booker-logo.svg" alt="" width="172" height="80">
+      </a>
+      <p class="site-footer__tagline">Le catch,<br>sans filtre.</p>
+      <a class="btn btn--light" href="reservation.html">Réserver ma place</a>
+    </div>
+
+    <div class="container site-footer__grid">
+      <nav aria-label="Navigation du site">
+        <h2>Le site</h2>
+        <ul>
+          <li><a href="index.html#federation">La fédération</a></li>
+          <li><a href="index.html#programme">Programme</a></li>
+          <li><a href="index.html#titres">Les ceintures</a></li>
+          <li><a href="index.html#lutteurs">Les lutteurs</a></li>
+          <li><a href="index.html#billetterie">Billetterie</a></li>
+          <li><a href="index.html#actus">Actualités</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Informations pratiques">
+        <h2>Infos</h2>
+        <ul>
+          <li><a href="reservation.html">Réserver mes places</a></li>
+          <li><a href="infos-pratiques.html">Infos pratiques</a></li>
+          <li><a href="cgv.html">Conditions de vente</a></li>
+          <li><a href="credits.html">Crédits (images et polices)</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:billeterie.booker@lucasternel.com">billeterie.booker@lucasternel.com</a></li>
+          <li>Arena Booker, 1 rue du Ring, 62300 Lens</li>
+        </ul>
+        <ul class="social" aria-label="Réseaux sociaux">
+          <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram (s'ouvre dans un nouvel onglet)">Instagram</a></li>
+          <li><a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube (s'ouvre dans un nouvel onglet)">YouTube</a></li>
+          <li><a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X (s'ouvre dans un nouvel onglet)">X</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container site-footer__bottom">
+      <p>© 2026 BOOKER Wrestling · Événement fictif — projet étudiant, module CSS avancé.</p>
+      <nav aria-label="Informations légales">
+        <ul class="legal-nav__list">
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><a href="confidentialite.html">Confidentialité</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+          <li><a href="accessibilite.html">Accessibilité</a></li>
+          <li><a href="credits.html">Crédits</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=f36d57df" defer></script>
+</body>
+</html>

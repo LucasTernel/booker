@@ -1,0 +1,67 @@
+/* ==========================================================================
+   base.css — Layer « base » : styles par défaut des ÉLÉMENTS HTML.
+   Sélecteurs d'éléments, :where() et :is() uniquement. Tokens SÉMANTIQUES.
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-block-start: 6rem; /* l'en-tête collant ne masque pas les ancres */
+  }
+
+  /* Taille du texte choisie dans le panneau Accessibilité : tout est en rem,
+     donc tout suit (comme sur Scent Back : A, A+, A++, A+++). */
+  :root:has(#taille-1:checked) { font-size: 112.5%; }
+  :root:has(#taille-2:checked) { font-size: 125%; }
+  :root:has(#taille-3:checked) { font-size: 140%; }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-body);
+    line-height: 1.6;
+    overflow-x: clip; /* aucun défilement horizontal (exigence 3) */
+    overflow-wrap: break-word;
+  }
+
+  /* :where() → spécificité nulle, facile à surcharger (exigence 4) */
+  :where(h1, h2, h3) {
+    font-family: var(--font-display);
+    font-weight: 400;          /* Bebas Neue n'a qu'une graisse */
+    letter-spacing: 0.02em;
+    line-height: 0.95;
+    text-wrap: balance;
+  }
+
+  h1 { font-size: var(--font-size-h1); line-height: 0.85; }
+  h2 { font-size: var(--font-size-h2); }
+  h3 { font-size: var(--font-size-h3); }
+
+  /* :is() factorise le texte courant */
+  :is(p, li, summary) {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: 2px;
+  }
+
+  /* Exigence 7 : focus TOUJOURS visible au clavier */
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  /* Zones toujours sombres (en-tête, hero, footer) : l'anneau de focus passe en blanc */
+  :where(.nav, .hero, .site-footer, .newsletter) {
+    --color-focus: var(--color-focus-on-dark);
+  }
+
+  ::selection {
+    background: var(--color-action);
+    color: var(--color-on-action);
+  }
+}

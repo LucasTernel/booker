@@ -1,0 +1,38 @@
+/* ==========================================================================
+   reset.css — Layer « reset »
+   Rôle : neutraliser les différences entre navigateurs. Rien de spécifique
+   au projet ici (pas de couleur, pas de police).
+   Astuce : :where() donne une spécificité nulle → tout le reste gagne
+   facilement, même dans un layer précédent… mais ici c'est l'ordre des
+   layers qui fait déjà le travail.
+   ========================================================================== */
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  :where(body, h1, h2, h3, h4, p, figure, blockquote, dl, dd) {
+    margin: 0;
+  }
+
+  :where(ul, ol)[class] {   /* listes de composants (avec une classe) : sans puces ; les listes de texte gardent leurs puces */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  :where(img, picture, svg, video) {
+    display: block;
+    max-inline-size: 100%;
+    block-size: auto;
+  }
+
+  :where(input, button, textarea, select) {
+    font: inherit;
+  }
+
+  /* TODO : compléter si besoin (ex. text-size-adjust, overflow-wrap…). */
+}

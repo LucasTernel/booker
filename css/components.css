@@ -1,0 +1,1630 @@
+/* ==========================================================================
+   components.css — Layer « components » : composants réutilisables.
+   Convention BEM : .bloc, .bloc__element, .bloc--variante (utilitaires u-).
+   Un composant = un bloc de nesting (≤ 3 niveaux).
+   ========================================================================== */
+
+@layer components {
+  /* ---------- Marque + navigation (Flexbox) --------------------------- */
+  .brand {
+    display: block;
+
+    & img {
+      block-size: 3rem;
+      inline-size: auto;
+    }
+
+    & .brand__logo--sombre {
+      display: var(--display-logo-sombre);
+    }
+
+    & .brand__logo--clair {
+      display: var(--display-logo-clair);
+    }
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    background-color: var(--color-action);
+    color: var(--color-on-action);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    @media (width >= 48rem) {
+      gap: var(--space-2) var(--space-4);
+      padding: var(--space-2) var(--space-4);
+    }
+  }
+
+  /* Liste de liens. Par défaut (et dans les navigateurs SANS popover) : barre en ligne
+     qui peut passer à la ligne. AVEC popover, sur mobile : panneau déroulant sous
+     l'en-tête, animé à l'ouverture (display + overlay animés, @starting-style). */
+  .nav__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @supports selector(:popover-open) {
+      display: none;
+      position: fixed;
+      inset: var(--header-height) 0 auto 0;
+      inline-size: auto;
+      max-inline-size: none;
+      padding: var(--space-4) var(--space-6) var(--space-6);
+      border: 0;
+      border-block-end: 6px solid var(--color-action);   /* bord net : le menu ne se confond pas avec le hero rouge */
+      background-color: var(--color-header-bg);          /* même fond que l'en-tête : les deux forment un bloc */
+      color: var(--color-on-header-bg);
+      box-shadow: var(--shadow-menu);
+      --color-focus: var(--color-focus-surface);
+      flex-direction: column;
+      gap: var(--space-1);
+      opacity: 0;
+      translate: 0 -0.75rem;
+      transition:
+        opacity var(--duration-base) var(--ease-out),
+        translate var(--duration-base) var(--ease-out),
+        display var(--duration-base) allow-discrete,
+        overlay var(--duration-base) allow-discrete;
+
+      &:popover-open {
+        display: flex;
+        opacity: 1;
+        translate: 0 0;
+      }
+
+      @starting-style {
+        &:popover-open {
+          opacity: 0;
+          translate: 0 -0.75rem;
+        }
+      }
+
+      @supports (anchor-name: --site-header) {
+        position-anchor: --site-header;
+        inset: anchor(bottom) 0 auto 0;
+      }
+
+      & .nav__link {
+        min-block-size: 2.75rem;
+        padding-inline-start: var(--space-3);
+        border-inline-start: 4px solid transparent;
+        font-family: var(--font-display);
+        font-size: 1.75rem;
+        letter-spacing: 0.06em;
+        transition: border-color var(--duration-fast) var(--ease-out);
+
+        &:hover {
+          border-inline-start-color: var(--color-action);
+          text-decoration: none;
+        }
+      }
+
+      /* Desktop : retour à la barre en ligne (le bouton burger est masqué) */
+      @media (width >= 48rem) {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--space-1) var(--space-4);
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        box-shadow: none;
+        opacity: 1;
+        translate: none;
+
+        & .nav__link {
+          min-block-size: 1.5rem;
+          padding-inline-start: 0;
+          border-inline-start: 0;
+          font-family: inherit;
+          font-size: inherit;
+          letter-spacing: inherit;
+        }
+      }
+    }
+  }
+
+  /* Bouton burger : 3 barres qui se transforment en croix quand le menu est ouvert.
+     Masqué par défaut ; affiché sur mobile seulement si le navigateur gère le popover. */
+  .burger {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    padding: 0;
+    border: 2px solid currentColor;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      background-color: var(--color-on-action);
+      color: var(--color-action);
+    }
+
+    @supports selector(:popover-open) {
+      display: inline-flex;
+
+      @media (width >= 48rem) {
+        display: none;
+      }
+    }
+  }
+
+  .burger__bar {
+    position: relative;
+    inline-size: 1.25rem;
+    block-size: 2px;
+    background-color: currentColor;
+    transition: background-color var(--duration-fast) var(--ease-out);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      block-size: 2px;
+      background-color: currentColor;
+      transition:
+        translate var(--duration-base) var(--ease-out),
+        rotate var(--duration-base) var(--ease-out);
+    }
+
+    &::before { translate: 0 -0.4rem; }
+    &::after { translate: 0 0.4rem; }
+  }
+
+  .nav:has(.nav__list:popover-open) .burger__bar {
+    background-color: transparent;
+
+    &::before {
+      translate: 0 0;
+      rotate: 45deg;
+    }
+
+    &::after {
+      translate: 0 0;
+      rotate: -45deg;
+    }
+  }
+
+  .nav__link {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 1.5rem;     /* cible tactile ≥ 24 px */
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  /* ---------- Panneau Accessibilité (Popover API, sans JS) ------------ */
+  .a11y-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    border: 2px solid currentColor;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      background-color: var(--color-on-action);
+      color: var(--color-action);
+    }
+
+    & .a11y-btn__short {
+      text-transform: none;   /* « Aa » et non « AA » */
+    }
+
+    & .a11y-btn__long {
+      display: none;
+    }
+
+    @media (width >= 48rem) {
+      & .a11y-btn__short {
+        display: none;
+      }
+
+      & .a11y-btn__long {
+        display: inline;
+      }
+    }
+  }
+
+  .a11y {
+    inset: 4.5rem var(--space-4) auto auto;
+    inline-size: min(22rem, 100% - 2 * var(--space-4));
+    margin: 0;
+    padding: var(--space-6);
+    border: 2px solid var(--color-action);
+    background-color: var(--color-surface-raised);
+    color: var(--color-text);
+    box-shadow: 8px 8px 0 var(--color-action);
+    /* @starting-style : le panneau glisse à l'ouverture, sans JS */
+    opacity: 1;
+    translate: 0 0;
+    transition:
+      opacity var(--duration-base) var(--ease-out),
+      translate var(--duration-base) var(--ease-out),
+      display var(--duration-base) allow-discrete,
+      overlay var(--duration-base) allow-discrete;
+
+    &:not(:popover-open) {
+      opacity: 0;
+      translate: 0 -0.75rem;
+    }
+
+    @starting-style {
+      &:popover-open {
+        opacity: 0;
+        translate: 0 -0.75rem;
+      }
+    }
+
+    & fieldset {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin: 0 0 var(--space-6);
+      padding: 0;
+      border: 0;
+    }
+
+    & legend {
+      margin-block-end: var(--space-2);
+      padding: 0;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+    }
+
+    & .a11y__title {
+      margin: 0 0 var(--space-4);
+      font-family: var(--font-display);
+      font-size: 2rem;
+    }
+
+    & .a11y__close {
+      font-size: 1.25rem;
+    }
+  }
+
+  /* Choix = bouton radio masqué, libellé stylé ; coché → plein (:has) */
+  .choice {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: 3rem;
+    padding: var(--space-2) var(--space-4);
+    border: 2px solid var(--color-border-strong);
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      border-color: var(--color-action);
+    }
+
+    &:has(input:checked) {
+      background-color: var(--color-action);
+      border-color: var(--color-action);
+      color: var(--color-on-action);
+    }
+
+    &:has(input:focus-visible) {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 3px;
+    }
+
+    & input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  /* ---------- Bouton (coupe oblique signature) ------------------------ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-8);
+    border: 0;
+    background-color: var(--color-action);
+    color: var(--color-on-action);
+    clip-path: var(--clip-slant);
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      translate var(--duration-fast) var(--ease-out),
+      background-color var(--duration-base) var(--ease-out),
+      color var(--duration-base) var(--ease-out);
+
+    &:hover {
+      translate: 0 -3px;
+      background-color: var(--color-text);
+      color: var(--color-surface);
+    }
+
+    &:active {
+      translate: 0 0;
+    }
+
+    &.btn--light {
+      background-color: var(--color-on-stage);
+      color: var(--color-stage);
+
+      /* Survol : le contraire de l'environnement. Sur fond rouge (hero, newsletter) →
+         bouton noir ; sur fond noir (footer) → bouton rouge (cf. .site-footer plus bas). */
+      &:hover {
+        background-color: var(--btn-light-hover-bg, var(--color-stage));
+        color: var(--btn-light-hover-fg, var(--color-on-stage));
+      }
+    }
+  }
+
+  /* Le clip-path découpe aussi l'anneau de focus : on le dessine à l'INTÉRIEUR
+     du bouton (offset négatif), sinon il serait invisible au clavier. */
+  .btn:focus-visible {
+    outline-color: var(--color-on-action);
+    outline-offset: -6px;
+  }
+
+  .btn--light:focus-visible {
+    outline-color: var(--color-stage);
+  }
+
+  .night__link:focus-visible {
+    outline-offset: -8px;
+  }
+
+  /* ---------- Textes éditoriaux --------------------------------------- */
+  .eyebrow {
+    margin-block-end: var(--space-3);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  /* Lettres creuses (signature de l'accueil BOOKER) */
+  .outline-text {
+    color: var(--color-text);                    /* couleur réelle : contraste mesurable */
+    -webkit-text-fill-color: transparent;        /* effet « contour » ; repli : texte plein */
+    -webkit-text-stroke: 2px var(--color-text);
+  }
+
+  /* ---------- Hero ---------------------------------------------------- */
+  /* Dalle rouge oblique derrière le titre */
+  .hero__slab {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: -3;
+    block-size: min(46rem, 80%);
+    background: var(--color-action);
+    clip-path: polygon(0 0, 100% 0, 100% 62%, 0 88%);
+  }
+
+  /* Projecteurs : deux faisceaux qui se balancent doucement */
+  .hero__lights {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      conic-gradient(from 190deg at 18% -8%, transparent 0deg, var(--light-beam) 7deg, transparent 15deg),
+      conic-gradient(from 168deg at 82% -8%, transparent 0deg, var(--light-beam) 7deg, transparent 15deg);
+    mix-blend-mode: soft-light;
+    transform-origin: 50% 0;
+    animation: sway 9s ease-in-out 4 alternate;   /* fini : pas de mouvement perpétuel */
+  }
+
+  /* Grain (SVG feTurbulence) : casse l'aplat numérique */
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0.16;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .hero__eyebrow {
+    margin: 0 0 var(--space-3);
+    color: var(--color-on-action);   /* texte sur la dalle rouge : blanc (4,75:1), pas l'os (4,4:1) */
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .hero__title {
+    margin: 0;
+    font-size: clamp(4rem, 1rem + 14vw, 10.5rem);
+    line-height: 0.82;
+    text-shadow: 0.04em 0.04em 0 var(--color-title-shadow);
+    animation: pop-in var(--duration-slow) var(--ease-out) both;
+
+    & .outline-text {
+      color: var(--color-on-action);
+      -webkit-text-stroke: 3px var(--color-on-stage);
+      text-shadow: none;
+    }
+  }
+
+  .hero__side {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+
+    @media (width >= 48rem) {
+      justify-items: end;
+      text-align: end;
+    }
+  }
+
+  .hero__meta {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 1.2rem + 2vw, 2.75rem);
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+
+  /* Une nuit = un panneau à la DA de son show */
+  .night {
+    position: relative;
+    flex: 1 1 0;
+    min-inline-size: 0;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 70% at 50% 0%, var(--show-glow), transparent 65%),
+      var(--show-bg);
+    box-shadow: inset 0 -10px 0 var(--show-accent);
+    animation: pop-in var(--duration-slow) var(--ease-out) both;
+    transition: translate var(--duration-base) var(--ease-out);
+
+    &:nth-child(2) { animation-delay: 120ms; }
+    &:nth-child(3) { animation-delay: 240ms; }
+
+    @media (width >= 64rem) {
+      clip-path: polygon(9% 0, 100% 0, 91% 100%, 0 100%);
+      margin-inline: -1.25rem;
+
+      &:hover,
+      &:has(a:focus-visible) {
+        translate: 0 -0.75rem;
+      }
+    }
+  }
+
+  .night__link {
+    position: relative;
+    display: grid;
+    align-content: space-between;
+    justify-items: center;
+    gap: var(--space-3);
+    min-block-size: 24rem;
+    padding: var(--space-8) var(--space-8) var(--space-12);
+    color: var(--show-fg);
+    text-align: center;
+    text-decoration: none;
+
+    @media (width >= 64rem) {
+      min-block-size: 38rem;
+      padding-inline: var(--space-12);
+    }
+  }
+
+  .night__logo {
+    inline-size: min(100%, 22rem);
+    max-block-size: 13rem;
+    object-fit: contain;
+    filter: var(--shadow-logo);
+    transition: scale var(--duration-base) var(--ease-out);
+  }
+
+  .night:hover .night__logo {
+    scale: 1.08;
+  }
+
+  /* Numéro du jour géant, en creux derrière le texte */
+  .night__num {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    z-index: -1;
+    font-family: var(--font-display);
+    font-size: clamp(10rem, 22vw, 17rem);
+    line-height: 0.85;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--show-accent);
+    opacity: 0.4;
+    transition: opacity var(--duration-base) var(--ease-out);
+  }
+
+  .night:hover .night__num {
+    opacity: 0.9;
+  }
+
+  .night__date {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+
+  .night__tag {
+    font-style: italic;
+  }
+
+  .night__go {
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--show-fg);
+  }
+
+  /* Cordes du ring : 3 filets qui traversent le bas du hero */
+  .hero__ropes {
+    block-size: 3.5rem;
+    background:
+      linear-gradient(var(--color-rope-1) 0 0) 0 0.4rem / 100% 0.5rem no-repeat,
+      linear-gradient(var(--color-rope-2) 0 0) 0 1.5rem / 100% 0.5rem no-repeat,
+      linear-gradient(var(--color-rope-3) 0 0) 0 2.6rem / 100% 0.5rem no-repeat;
+  }
+
+  /* ---------- Bandeau défilant (décoratif) ---------------------------- */
+  .ticker {
+    padding-block: var(--space-3);
+    background-color: var(--color-ticker-bg);
+    color: var(--color-on-stage);
+    border-block: 1px solid var(--color-stage-line);
+
+    & .ticker__track {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-1) var(--space-4);
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+      letter-spacing: 0.1em;
+    }
+
+    & span:nth-child(even) {
+      color: var(--color-ticker-accent);
+    }
+  }
+
+  /* ---------- Soirée (programme + hero) : DA propre à chaque show ------ */
+  [data-show] {
+    --show-bg: var(--color-stage);
+    --show-fg: var(--color-on-stage);
+    --show-accent: var(--color-on-stage);
+    --show-glow: transparent;
+    --color-focus: var(--color-focus-on-dark);   /* panneaux toujours sombres */
+
+    &[data-show="prelude"] {
+      --show-bg: var(--color-show-prelude-bg);
+      --show-fg: var(--color-show-prelude-fg);
+      --show-accent: var(--color-show-prelude-accent);
+      --show-glow: var(--color-show-prelude-glow);
+    }
+
+    &[data-show="rising"] {
+      --show-bg: var(--color-show-rising-bg);
+      --show-fg: var(--color-show-rising-fg);
+      --show-accent: var(--color-show-rising-accent);
+      --show-glow: var(--color-show-rising-glow);
+    }
+
+    &[data-show="final"] {
+      --show-bg: var(--color-show-final-bg);
+      --show-fg: var(--color-show-final-fg);
+      --show-accent: var(--color-show-final-accent);
+      --show-glow: var(--color-show-final-glow);
+    }
+  }
+
+  .day {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    background:
+      radial-gradient(110% 40% at 50% 0%, var(--show-glow), transparent 70%),
+      var(--show-bg);
+    color: var(--show-fg);
+    border-block-start: 6px solid var(--show-accent);
+  }
+
+  .day__title {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+
+    & img {
+      inline-size: 100%;
+      max-block-size: 5rem;
+      object-fit: contain;
+    }
+  }
+
+  .day__date {
+    font-size: 1.35rem;
+    letter-spacing: 0.08em;
+    color: var(--show-fg);
+  }
+
+  .day__tagline {
+    margin: 0;
+    font-size: var(--font-size-small);
+    font-style: italic;
+  }
+
+  .day__slots {
+    counter-reset: match;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Créneau = SUBGRID : il réutilise les colonnes de .day__slots */
+  .slot {
+    counter-increment: match;
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    align-items: baseline;
+    padding-block: var(--space-2);
+    border-block-start: 1px solid color-mix(in oklab, var(--show-fg) 35%, transparent);
+
+    /* Numéro du combat : 1re colonne du subgrid (compteur CSS, pas d'horaire) */
+    &::before {
+      content: counter(match, decimal-leading-zero);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      line-height: 1.4;
+      color: var(--show-fg);
+    }
+
+    & .slot__title {
+      overflow-wrap: anywhere;
+      margin: 0;
+      font-size: 0.875rem;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
+    & .slot__tag {
+      grid-column: 2;
+      margin: 0;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+  }
+
+  .programme__intro {
+    grid-area: intro;
+    margin: 0;
+    max-inline-size: 48rem;
+    font-size: var(--font-size-small);
+    color: var(--color-text-muted);
+  }
+
+  .slot__note {
+    grid-column: 2;
+    margin: var(--space-1) 0 0;
+    font-size: 0.75rem;
+    font-style: italic;
+    opacity: 0.85;
+  }
+
+  .slot__stip {
+    color: var(--show-fg);
+    font-weight: 600;
+  }
+
+  /* Autres ceintures : plaques typographiques */
+  .plate {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+    padding: var(--space-6);
+    background-color: var(--color-stage);
+    color: var(--color-on-stage);
+    border-inline-start: 6px solid var(--color-title-plate);
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 94% 100%, 0 100%);
+    transition: translate var(--duration-base) var(--ease-out);
+
+    &:hover {
+      translate: 0 -4px;
+    }
+
+    & p {
+      margin: 0;
+    }
+
+    & .plate__kind {
+      font-size: var(--font-size-small);
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--color-title-plate);
+    }
+
+    & .plate__name {
+      font-size: 2rem;
+    }
+  }
+
+  /* Roster complet : pastilles */
+  .roster-more {
+    margin-block-start: var(--space-12);
+
+    & h3 {
+      margin-block-end: var(--space-4);
+    }
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    & li {
+      padding: var(--space-1) var(--space-4);
+      border: 2px solid var(--color-border);
+      font-weight: 600;
+      transition: border-color var(--duration-fast) var(--ease-out);
+
+      &:hover {
+        border-color: var(--color-action);
+      }
+    }
+  }
+
+  /* ---------- Carte lutteur : SUBGRID + container query --------------- */
+  .card {
+    display: grid;
+    grid-row: span 6;                 /* visuel, nom, rôle, bio, jauges, lien */
+    grid-template-rows: subgrid;
+    row-gap: var(--space-2);
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    padding-block-end: var(--space-card);
+    transition:
+      translate var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+
+    &:hover {
+      translate: 0 -6px;
+      box-shadow: 0 14px 0 -6px var(--color-action);
+    }
+
+    & > :not(.card__media) {
+      margin: 0;
+      padding-inline: var(--space-card);
+    }
+
+    /* Visuel de carte, identique pour tous : fond noir + logo BOOKER en filigrane,
+       puis (selon le cas) initiales, photo détourée ou portrait fourni. */
+    & .card__media {
+      position: relative;
+      overflow: hidden;
+      inline-size: 100%;
+      aspect-ratio: 4 / 3;
+      background: var(--color-stage);
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("../img/booker-logo.svg") center / 78% no-repeat;
+        opacity: 0.3;
+      }
+
+      & .card__initials {
+        position: absolute;
+        inset: auto 0 -0.14em;
+        text-align: center;
+        font-family: var(--font-display);
+        font-size: 11rem;
+        line-height: 1;
+        color: var(--color-on-stage);
+        text-shadow: 6px 6px 0 var(--color-action);
+        transition: translate var(--duration-base) var(--ease-out);
+      }
+
+      & .card__tag {
+        position: absolute;
+        z-index: 2;
+        inset: var(--space-3) auto auto var(--space-3);
+        padding: var(--space-1) var(--space-3);
+        background: var(--color-on-stage);
+        color: var(--color-stage);
+        clip-path: var(--clip-slant);
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        letter-spacing: 0.12em;
+      }
+    }
+
+    /* Photo réelle détourée (licence libre, cf. credits.html), posée sur le fond */
+    & .card__media--real img {
+      position: absolute;
+      inset: 0;
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+      filter: var(--shadow-photo);
+      transition: scale var(--duration-base) var(--ease-out);
+    }
+
+    &:hover .card__media--real img {
+      scale: 1.04;
+    }
+
+    /* Portrait (photo détourée) posé PAR-DESSUS les initiales : si le fichier
+       manque, on voit simplement les initiales. Fichiers : img/lutteurs/. */
+    & .card__media--portrait::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--portrait, none) bottom center / contain no-repeat;
+      filter: var(--shadow-photo);
+      transition: scale var(--duration-base) var(--ease-out);
+    }
+
+    &:hover .card__media--portrait::after {
+      scale: 1.04;
+    }
+
+    & .card__media--lucas-ternel { --portrait: url("../img/lutteurs/lucas-ternel-bleu.webp"); }
+    & .card__media--gilles-audemard { --portrait: url("../img/lutteurs/gilles-audemard.webp"); }
+    & .card__media--vincent-dubois { --portrait: url("../img/lutteurs/vincent-dubois.webp"); }
+    & .card__media--sebastien-tabary { --portrait: url("../img/lutteurs/sebastien-tabary.webp"); }
+    & .card__media--virginie-hayenne-cuvillon { --portrait: url("../img/lutteurs/virginie-hayenne-cuvillon.webp"); }
+
+    /* Variante objet (Détrompeur) : posé au centre, légèrement penché */
+    & .card__media--photo {
+      display: grid;
+      place-items: center;
+
+      & img {
+        position: relative;
+        block-size: 74%;
+        inline-size: auto;
+        max-inline-size: 60%;
+        object-fit: contain;
+        rotate: -8deg;
+        filter: var(--shadow-photo);
+        transition: rotate var(--duration-base) var(--ease-out);
+      }
+    }
+
+    &:hover .card__media--photo img {
+      rotate: 0deg;
+    }
+
+    &:hover .card__initials {
+      translate: -0.5rem -0.5rem;
+    }
+
+    & .card__name {
+      font-size: var(--font-size-h3);
+    }
+
+    & .card__role {
+      font-size: var(--font-size-small);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+    }
+
+    & .card__stats {
+      display: grid;
+      gap: var(--space-2);
+      margin: 0;
+
+      & div {
+        display: grid;
+        grid-template-columns: 6.5rem 1fr;
+        align-items: center;
+        gap: var(--space-3);
+      }
+
+      & dt {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+      }
+
+      & dd {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    & .card__link {
+      align-self: end;
+      display: inline-flex;
+      align-items: center;
+      min-block-size: 1.5rem;
+      font-weight: 600;
+    }
+  }
+
+  /* Contexte LARGE (section .speakers ≥ 40rem) : carte plus aérée et
+     image panoramique. Contexte ÉTROIT (aside du hero, mobile) : compact. */
+  @container speakers (inline-size >= 40rem) {
+    .card {
+      row-gap: var(--space-3);
+
+      & .card__media {
+        aspect-ratio: 16 / 10;
+
+        & .card__initials {
+          font-size: 14rem;
+        }
+      }
+
+      & .card__name {
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  @container speakers (inline-size < 40rem) {
+    .card__bio {
+      font-size: var(--font-size-small);
+    }
+  }
+
+  /* Jauges <meter> : barres rouges BOOKER (WebKit puis Firefox, règles séparées) */
+  .card meter {
+    appearance: none;
+    inline-size: 100%;
+    block-size: 0.6rem;
+    border: 0;
+    background: var(--color-border);
+  }
+
+  .card meter::-webkit-meter-bar {
+    block-size: 0.6rem;
+    border: 0;
+    background: var(--color-border);
+  }
+
+  .card meter::-webkit-meter-optimum-value,
+  .card meter::-webkit-meter-suboptimum-value,
+  .card meter::-webkit-meter-even-less-good-value {
+    background: var(--color-action);
+  }
+
+  .card meter::-moz-meter-bar {
+    background: var(--color-action);
+  }
+
+  /* ---------- Ceintures en jeu ----------------------------------------- */
+  .belt {
+    position: relative;
+    margin: 0;
+    filter: var(--shadow-belt);
+    transition: rotate var(--duration-slow) var(--ease-out);
+
+    & img {
+      inline-size: 100%;
+    }
+
+    & figcaption {
+      display: grid;
+      margin-block-start: var(--space-2);
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      letter-spacing: 0.06em;
+
+      & span {
+        font-family: var(--font-sans);
+        font-size: var(--font-size-small);
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-accent);
+      }
+    }
+
+    &:nth-child(1) { rotate: -3deg; }
+    &:nth-child(2) { rotate: 2deg; }
+    &:hover { rotate: 0deg; }
+  }
+
+  /* ---------- Pages légales (prose lisible) ------------------------------ */
+  .legal {
+    max-inline-size: 52rem;
+
+    & h2 {
+      margin: var(--space-8) 0 var(--space-3);
+      font-size: 2.25rem;
+    }
+
+    & p + p {
+      margin-block-start: var(--space-3);
+    }
+
+    & :is(ul, ol) {
+      display: grid;
+      gap: var(--space-2);
+      padding-inline-start: var(--space-6);
+    }
+  }
+
+  .legal__title {
+    margin-block-end: var(--space-4);
+    font-size: clamp(3rem, 1rem + 9vw, 7rem);
+  }
+
+  .legal__date {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+
+  .legal__notice {
+    padding: var(--space-4) var(--space-6);
+    border-inline-start: 6px solid var(--color-action);
+    background-color: var(--color-surface-raised);
+  }
+
+  /* Tableau défilable (jamais de scroll horizontal de page à 320 px) */
+  .legal__scroll {
+    overflow-x: auto;
+  }
+
+  .legal__table {
+    inline-size: 100%;
+    min-inline-size: 30rem;
+    border-collapse: collapse;
+
+    & :is(th, td) {
+      padding: var(--space-3);
+      border-block-end: 1px solid var(--color-border);
+      text-align: start;
+    }
+
+    & thead th {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 0.08em;
+    }
+  }
+
+  /* Liens légaux du footer */
+  .legal-nav__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--font-size-small);
+
+    & a {
+      display: inline-flex;
+      align-items: center;
+      min-block-size: 1.5rem;
+    }
+  }
+
+  /* ---------- Offre de billetterie ------------------------------------ */
+  .offer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-card);
+    background-color: var(--color-surface-raised);
+    border: 2px solid var(--color-border);
+    transition:
+      translate var(--duration-base) var(--ease-out),
+      border-color var(--duration-base) var(--ease-out);
+
+    & .offer__price {
+      font-family: var(--font-display);
+      font-size: 4.5rem;
+      line-height: 1;
+      margin: 0;
+    }
+
+    & .offer__list {
+      display: grid;
+      gap: var(--space-2);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      align-content: start;
+      flex-grow: 1;
+    }
+
+    & .offer__badge {
+      align-self: flex-start;
+      margin: 0;
+      padding: var(--space-1) var(--space-4);
+      background-color: var(--color-action);
+      color: var(--color-on-action);
+      clip-path: var(--clip-slant);
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 0.1em;
+    }
+
+    &:hover {
+      translate: 0 -4px;
+    }
+
+    /* Exigence 4 : l'offre qui CONTIENT un badge est mise en avant, sans classe */
+    &:has(.offer__badge) {
+      border-color: var(--color-action);
+      background-color: var(--color-surface-raised);
+      box-shadow: 8px 8px 0 var(--color-action);
+    }
+  }
+
+  /* ---------- Formulaire de réservation ------------------------------- */
+  .checkout__title {
+    margin-block-end: var(--space-6);
+  }
+
+  .form {
+    display: grid;
+    gap: var(--space-6);
+
+    & fieldset {
+      display: grid;
+      gap: var(--space-3);
+      margin: 0;
+      padding: 0;
+      border: 0;
+      min-inline-size: 0;
+    }
+
+    & legend {
+      margin-block-end: var(--space-3);
+      padding: 0;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* Exigence 4 : le choix de la nuit n'a de sens que pour le Pass soirée */
+    &:has(#pass-soiree input:not(:checked)) .form__night {
+      display: none;
+    }
+  }
+
+  .form__night {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  }
+
+  .form__fields {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  }
+
+  .form__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4) var(--space-6);
+  }
+
+  .field {
+    display: grid;
+    gap: var(--space-1);
+    font-weight: 600;
+
+    & input {
+      inline-size: 100%;
+      min-inline-size: 0;
+      padding: var(--space-3) var(--space-4);
+      border: 2px solid var(--color-border-strong);   /* composant d'interface : ≥ 3:1 */
+      background-color: var(--color-surface-raised);
+      color: var(--color-text);
+      font: inherit;
+      font-weight: 400;
+      transition: border-color var(--duration-fast) var(--ease-out);
+
+      &:hover {
+        border-color: var(--color-action);
+      }
+    }
+  }
+
+  /* Un pass = une carte radio. Coché OU ciblé par le lien « Choisir » → plein. */
+  .pass {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-1) var(--space-4);
+    padding: var(--space-4) var(--space-6);
+    border: 2px solid var(--color-border-strong);
+    background-color: var(--color-surface-raised);
+    cursor: pointer;
+    transition:
+      translate var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      translate: 0 -2px;
+    }
+
+    &:has(input:checked) {
+      border-color: var(--color-action);
+      box-shadow: 6px 6px 0 var(--color-action);
+    }
+
+    &:has(input:focus-visible) {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 3px;
+    }
+
+    & input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    & .pass__name {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+    }
+
+    & .pass__price {
+      grid-row: span 2;
+      align-self: center;
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+    }
+
+    & .pass__text {
+      color: var(--color-text-muted);
+    }
+  }
+
+  /* Confirmation : masquée tant qu'on n'a pas envoyé le formulaire (:target) */
+  .thanks {
+    display: none;
+    padding: var(--space-8);
+    border: 2px solid var(--color-action);
+    background-color: var(--color-surface-raised);
+    box-shadow: 8px 8px 0 var(--color-action);
+
+    &:target {
+      display: grid;
+      gap: var(--space-4);
+      justify-items: start;
+    }
+  }
+
+  .checkout:has(.thanks:target) .form {
+    display: none;
+  }
+
+  /* ---------- La fédération : chiffres géants ---------------------------- */
+  .about__text p + p {
+    margin-block-start: var(--space-3);
+  }
+
+  .about__stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+    margin: 0;
+  }
+
+  .stat {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+    padding: var(--space-4) var(--space-6);
+    background-color: var(--color-surface-raised);
+    border-inline-start: 6px solid var(--color-action);
+
+    & dt {
+      font-size: var(--font-size-small);
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    & dd {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 2rem + 6vw, 8rem);
+      line-height: 0.9;
+    }
+  }
+
+  /* ---------- Actualités ---------------------------------------------------- */
+  .post {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3);
+    padding: var(--space-card);
+    background-color: var(--color-surface-raised);
+    border-block-start: 6px solid var(--color-action);
+    transition: translate var(--duration-base) var(--ease-out);
+
+    &:hover {
+      translate: 0 -4px;
+    }
+
+    & p {
+      margin: 0;
+    }
+
+    & .post__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2) var(--space-4);
+      font-size: var(--font-size-small);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+    }
+
+    & .post__title {
+      font-size: 2rem;
+    }
+  }
+
+  /* ---------- Newsletter : bandeau rouge BOOKER ---------------------------- */
+  .newsletter {
+    padding-block: var(--space-section);
+    background-color: var(--color-action);
+    color: var(--color-on-action);
+    clip-path: polygon(0 4%, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .newsletter__inner {
+    display: grid;
+    gap: var(--space-6);
+
+    @media (width >= 64rem) {
+      grid-template-columns: 1.2fr 1fr;
+      align-items: end;
+    }
+
+    & h2 {
+      font-size: clamp(3.5rem, 1rem + 9vw, 8rem);
+      line-height: 0.85;
+    }
+
+    & p {
+      margin: var(--space-4) 0 0;
+    }
+
+    & > .newsletter__ok {
+      display: none;
+      margin: 0;
+      font-weight: 600;
+
+      &:target {
+        display: block;
+      }
+    }
+  }
+
+  .newsletter__form {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+  }
+
+  .newsletter__field {
+    inline-size: 100%;
+    color: var(--color-on-action);
+  }
+
+  /* ---------- FAQ ------------------------------------------------------ */
+  .faq-item {
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+
+    & summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--space-6);
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      list-style: none;
+
+      &::after {
+        content: "+";
+        color: var(--color-accent);
+        font-size: 2rem;
+        transition: rotate var(--duration-base) var(--ease-out);
+      }
+    }
+
+    &[open] summary::after {
+      rotate: 135deg;
+    }
+
+    & p {
+      margin: 0;
+      padding: 0 var(--space-6) var(--space-6);
+      animation: slide-in var(--duration-base) var(--ease-out);
+    }
+  }
+
+  /* ---------- Footer ---------------------------------------------------- */
+  .site-footer {
+    --btn-light-hover-bg: var(--color-action);
+    --btn-light-hover-fg: var(--color-on-action);
+
+    & h2 {
+      margin-block-end: var(--space-3);
+      font-size: 1.75rem;
+      color: var(--color-on-header);
+    }
+
+    & :is(a, p, li) {
+      color: inherit;
+    }
+
+    & a {
+      overflow-wrap: anywhere;   /* adresse e-mail longue : jamais de débordement */
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      min-block-size: 1.5rem;
+      min-inline-size: 1.5rem;
+    }
+
+    & ul {
+      display: grid;
+      gap: var(--space-1);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    /* Listes horizontales (réseaux, liens légaux) : plus spécifique que « & ul » */
+    & ul:is(.social, .legal-nav__list) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1) var(--space-6);
+      margin-block-start: var(--space-3);
+    }
+
+    & .legal-nav__list {
+      margin-block-start: 0;
+      font-size: var(--font-size-small);
+    }
+
+    & .site-footer__logo img {
+      inline-size: clamp(8rem, 20vw, 11rem);
+      block-size: auto;
+    }
+
+    & .site-footer__tagline {
+      flex: 1 1 12rem;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 1rem + 5vw, 4.5rem);
+      line-height: 0.9;
+    }
+
+    & .site-footer__bottom p {
+      margin: 0;
+      font-size: var(--font-size-small);
+    }
+  }
+
+  .social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    margin-block-start: var(--space-2);
+
+    & a {
+      display: inline-flex;
+      align-items: center;
+      min-block-size: 1.5rem;
+    }
+  }
+
+  /* ---------- Keyframes ------------------------------------------------- */
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      translate: 0 2rem;
+      scale: 0.96;
+    }
+  }
+
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      translate: 0 -0.5rem;
+    }
+  }
+
+  @keyframes sway {
+    from { rotate: -2.5deg; }
+    to { rotate: 2.5deg; }
+  }
+
+  /* BONUS TECHNIQUE — apparition au scroll, en amélioration progressive :
+     Firefox ne gère pas animation-timeline → les blocs restent affichés
+     normalement (aucun opacity: 0 hors @supports). */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .card,
+      .offer,
+      .day {
+        animation: reveal linear backwards; /* backwards : ne bloque pas le :hover ensuite */
+        animation-timeline: view();
+        animation-range: entry 0% entry 35%;
+      }
+
+      @keyframes reveal {
+        from {
+          opacity: 0;
+          translate: 0 3rem;
+        }
+      }
+    }
+  }
+}

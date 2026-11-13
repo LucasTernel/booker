@@ -1,0 +1,154 @@
+/* ==========================================================================
+   tokens.css — Design tokens BOOKER « Semaine finale » (layer « base »)
+   Charte reprise de la fédération BOOKER (rouge #E11D2E, noir, os, angles
+   vifs, typo condensée) + palette propre à chacun des 3 shows.
+   1. PRIMITIFS   : valeurs brutes, jamais utilisées dans les composants.
+   2. SÉMANTIQUES : rôles (surface, texte, action…) — seuls utilisés par
+      layout.css et components.css. Le thème clair/sombre ne change QUE ceux-ci.
+   ========================================================================== */
+
+@layer base {
+  :root {
+    /* ---------- 1. Primitifs ---------------------------------------- */
+    /* Charte BOOKER */
+    --color-red-700: #b8101f;
+    --color-red-600: #e11d2e;
+    --color-red-400: #ff6b78;
+    --color-ink-950: #0b0b0f;
+    --color-ink-800: #1c1c24;
+    --color-ink-600: #374151;
+    --color-grey-600: #4b5563;
+    --color-grey-300: #b4bbc8;
+    --color-grey-200: #e5e7eb;
+    --color-bone: #f5f5f5;
+    --color-white: #fff;
+    --color-black: #000;
+
+    /* Palettes des 3 shows (relevées dans les logos) */
+    --color-prelude-fg: #f2f0e7;      /* crème */
+    --color-rising-fg: #fef99b;       /* or clair */
+    --color-rising-accent: #f7d02c;   /* or */
+    --color-final-fg: #fdfdfd;        /* blanc */
+    --color-final-red: #a92127;
+    --color-final-blue: #1c80c1;
+
+    /* Échelle d'espacements (base 0.25rem) */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+
+    /* Rayons (BOOKER = angles vifs → 0), durées, courbes */
+    --radius-s: 0;
+    --radius-m: 0;
+    --duration-fast: 150ms;
+    --duration-base: 300ms;
+    --duration-slow: 700ms;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* Effets (valeurs brutes) */
+    --shadow-drop-dark: rgb(0 0 0 / 0.6);
+
+    /* Découpe oblique signature (boutons, bandeaux) */
+    --clip-slant: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+
+    /* Polices : 2 familles Google Fonts, repli système */
+    --font-display: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+    --font-sans: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    /* ---------- 2. Sémantiques -------------------------------------- */
+    /* Nécessaire pour light-dark() et les contrôles natifs. */
+    color-scheme: light dark;
+
+    --color-surface: light-dark(var(--color-bone), var(--color-ink-950));
+    --color-surface-raised: light-dark(var(--color-white), var(--color-ink-800));
+    --color-text: light-dark(var(--color-ink-950), var(--color-bone));
+    --color-text-muted: light-dark(var(--color-grey-600), var(--color-grey-300));
+    --color-border: light-dark(var(--color-grey-300), var(--color-ink-600));
+    /* Texte/liens accentués : rouge assombri en clair, éclairci en sombre */
+    --color-accent: light-dark(var(--color-red-700), var(--color-red-400));
+    /* Fond des boutons et dalles : le rouge BOOKER dans les deux thèmes */
+    --color-action: var(--color-red-600);
+    --color-on-action: var(--color-white);
+    --color-focus: light-dark(var(--color-ink-950), var(--color-white));
+    --color-focus-surface: var(--color-focus);   /* anneau sur un fond de thème (panneau du menu), quel que soit l'ancêtre */
+    --shadow-menu: 0 18px 24px -12px rgb(0 0 0 / 0.55);
+    --color-stage: var(--color-ink-950);          /* hero : toujours sombre, comme l'en-tête */
+    --color-on-stage: var(--color-bone);
+    --color-stage-line: var(--color-ink-600);
+    --color-ticker-bg: var(--color-black);
+    --color-ticker-accent: var(--color-red-400);
+    --color-title-shadow: var(--color-black);
+    --color-title-plate: var(--color-rising-accent);
+    --color-rope-1: var(--color-red-600);
+    --color-rope-2: var(--color-white);
+    --color-rope-3: var(--color-final-blue);
+    --color-focus-on-dark: var(--color-white);
+    --color-border-strong: light-dark(var(--color-grey-600), var(--color-grey-300));
+    --light-beam: rgb(255 255 255 / 0.16);
+    --shadow-logo: drop-shadow(0 12px 24px var(--shadow-drop-dark));
+    --shadow-photo: drop-shadow(0 10px 14px var(--shadow-drop-dark));
+    --shadow-belt: drop-shadow(0 24px 24px rgb(0 0 0 / 0.45));
+
+    /* Identité de chaque show (relevée dans les logos) */
+    --color-show-prelude-bg: var(--color-ink-950);
+    --color-show-prelude-fg: var(--color-prelude-fg);
+    --color-show-prelude-accent: var(--color-prelude-fg);
+    --color-show-prelude-glow: rgb(242 240 231 / 0.2);
+    --color-show-rising-bg: oklch(18% 0.04 85);
+    --color-show-rising-fg: var(--color-rising-fg);
+    --color-show-rising-accent: var(--color-rising-accent);
+    --color-show-rising-glow: rgb(247 208 44 / 0.38);
+    --color-show-final-bg: oklch(17% 0.05 245);
+    --color-show-final-fg: var(--color-final-fg);
+    --color-show-final-accent: var(--color-final-blue);
+    --color-show-final-glow: rgb(28 128 193 / 0.45);
+    --color-header-bg: light-dark(var(--color-white), var(--color-ink-950));
+    --color-on-header-bg: light-dark(var(--color-ink-950), var(--color-bone));
+    --color-header-line: light-dark(var(--color-grey-300), var(--color-ink-600));
+    /* Logo de l'en-tête : version blanche en sombre, version couleur en clair */
+    --display-logo-sombre: block;
+    --display-logo-clair: none;
+    --color-header: var(--color-ink-950);          /* footer : toujours sombre */       /* barre toujours noire (charte) */
+    --color-on-header: var(--color-bone);
+
+    /* Typographie fluide : clamp(minimum, valeur préférée, maximum) */
+    --font-size-body: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    --font-size-h1: clamp(3.5rem, 1rem + 12vw, 9rem);
+    --font-size-h2: clamp(2.5rem, 1.2rem + 5vw, 5rem);
+    --font-size-h3: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem);
+    --font-size-small: 0.875rem;
+
+    --space-gutter: clamp(var(--space-4), 3vw, var(--space-12));   /* marge des blocs pleine largeur */
+    --space-section: clamp(var(--space-12), 3rem + 4vw, 7rem);
+    --space-card: clamp(var(--space-4), 3vw, var(--space-6));
+    --radius-card: var(--radius-m);
+  }
+
+  /* BONUS TECHNIQUE (exigence 5) — panneau « Accessibilité » sans JavaScript :
+     des boutons radio (#theme-auto / -clair / -sombre) changent color-scheme
+     sur <html> via :has() → tous les light-dark() basculent d'un coup.
+     « Auto » = aucune règle : on suit le réglage du système. */
+  @media (prefers-color-scheme: light) {
+    :root {
+      --display-logo-sombre: none;
+      --display-logo-clair: block;
+    }
+  }
+
+  :root:has(#theme-clair:checked) {
+    color-scheme: light;
+    --display-logo-sombre: none;
+    --display-logo-clair: block;
+  }
+
+  :root:has(#theme-sombre:checked) {
+    color-scheme: dark;
+    --display-logo-sombre: block;
+    --display-logo-clair: none;
+  }
+}

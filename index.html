@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BOOKER Wrestling — Site officiel de la fédération de catch</title>
+  <meta name="description" content="Site officiel de BOOKER Wrestling, fédération de catch : la Semaine Finale (Prelude to Chaos, Rising Empire, Final Chapter), le roster, les ceintures et la billetterie.">
+  <link rel="canonical" href="https://booker.lucasternel.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BOOKER Wrestling">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="BOOKER Wrestling — Site officiel de la fédération de catch">
+  <meta property="og:description" content="Site officiel de BOOKER Wrestling, fédération de catch : la Semaine Finale (Prelude to Chaos, Rising Empire, Final Chapter), le roster, les ceintures et la billetterie.">
+  <meta property="og:url" content="https://booker.lucasternel.com/">
+  <!-- Favicons : le coin du ring -->
+  <link rel="icon" href="assets/favicons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicons/favicon.ico" sizes="48x48">
+  <link rel="icon" href="assets/favicons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/favicons/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicons/apple-touch-icon.png">
+  <link rel="manifest" href="assets/favicons/site.webmanifest">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0b0f" media="(prefers-color-scheme: dark)">
+
+  <!-- Polices : Bebas Neue (titres) + Montserrat (texte), charte BOOKER -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600&display=swap">
+
+  <!-- Un SEUL fichier CSS lié : main.css déclare l'ordre des layers -->
+  <link rel="stylesheet" href="css/main.css?v=b4041a03">
+</head>
+<body id="top">
+
+  <header class="site-header">
+    <a href="#top" class="brand" aria-label="BOOKER, retour en haut de page">
+      <img class="brand__logo--sombre" src="img/booker-logo.svg" alt="BOOKER" width="129" height="60">
+      <img class="brand__logo--clair" src="img/booker-logo-clair.svg" alt="BOOKER" width="129" height="60">
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <!-- Menu burger (mobile) : Popover API, sans JavaScript pour l'ouverture -->
+      <button class="burger" type="button" popovertarget="menu" aria-label="Menu"><span class="burger__bar" aria-hidden="true"></span></button>
+      <ul class="nav__list" id="menu" popover>
+        <li><a class="nav__link" href="#federation">Fédération</a></li>
+        <li><a class="nav__link" href="#programme">Programme</a></li>
+        <li><a class="nav__link" href="#titres">Ceintures</a></li>
+        <li><a class="nav__link" href="#lutteurs">Lutteurs</a></li>
+        <li><a class="nav__link" href="#billetterie">Billetterie</a></li>
+        <li><a class="nav__link" href="#actus">Actus</a></li>
+        <li><a class="nav__link" href="#faq">FAQ</a></li>
+      </ul>
+      <!-- Panneau Accessibilité (Popover API) : thème + taille du texte -->
+      <button class="a11y-btn" type="button" popovertarget="a11y" aria-label="Accessibilité"><span class="a11y-btn__short" aria-hidden="true">Aa</span><span class="a11y-btn__long" aria-hidden="true">Accessibilité</span></button>
+    </nav>
+  </header>
+
+
+  <!-- Réglages d'accessibilité : radios + :has() (tokens.css, base.css), mémorisés par js/main.js -->
+  <div class="a11y" id="a11y" popover role="group" aria-label="Réglages d'accessibilité">
+    <p class="a11y__title">Accessibilité</p>
+    <fieldset>
+      <legend>Thème</legend>
+      <label class="choice"><input type="radio" name="theme" id="theme-auto" checked>Auto</label>
+      <label class="choice"><input type="radio" name="theme" id="theme-clair">Clair</label>
+      <label class="choice"><input type="radio" name="theme" id="theme-sombre">Sombre</label>
+    </fieldset>
+    <fieldset>
+      <legend>Taille du texte</legend>
+      <label class="choice"><input type="radio" name="taille" id="taille-0" aria-label="Texte normal" checked>A</label>
+      <label class="choice"><input type="radio" name="taille" id="taille-1" aria-label="Texte agrandi 1 fois">A+</label>
+      <label class="choice"><input type="radio" name="taille" id="taille-2" aria-label="Texte agrandi 2 fois">A++</label>
+      <label class="choice"><input type="radio" name="taille" id="taille-3" aria-label="Texte agrandi 3 fois">A+++</label>
+    </fieldset>
+    <button class="btn a11y__close" type="button" popovertarget="a11y" popovertargetaction="hide">Fermer</button>
+  </div>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-titre">
+      <div class="hero__slab" aria-hidden="true"></div>
+      <div class="hero__lights" aria-hidden="true"></div>
+      <div class="container hero__head">
+        <p class="hero__eyebrow">BOOKER Wrestling · l'événement de la saison</p>
+        <h1 class="hero__title" id="hero-titre">La semaine<br><span class="outline-text">finale.</span></h1>
+        <div class="hero__side">
+          <p class="hero__meta">
+            <time datetime="2027-04-02">2</time> au <time datetime="2027-04-04">4 avril 2027</time><br>
+            Arena Booker, Lens
+          </p>
+          <a class="btn btn--light" href="reservation.html">Réserver ma place</a>
+        </div>
+      </div>
+      <ol class="triptych">
+        <li class="night" data-show="prelude">
+          <a class="night__link" href="#jour-prelude">
+            <span class="night__num" aria-hidden="true">02</span>
+            <img class="night__logo" src="img/prelude-to-chaos-logo.svg" alt="Prelude to Chaos" width="400" height="260">
+            <span class="night__date">Vendredi 2 avril</span>
+            <span class="night__tag">Le calme avant la tempête.</span>
+            <span class="night__go">Voir le programme →</span>
+          </a>
+        </li>
+        <li class="night" data-show="rising">
+          <a class="night__link" href="#jour-rising">
+            <span class="night__num" aria-hidden="true">03</span>
+            <img class="night__logo" src="img/rising-empire-logo.svg" alt="Rising Empire" width="400" height="260">
+            <span class="night__date">Samedi 3 avril</span>
+            <span class="night__tag">Un empire se bâtit sous les yeux du monde.</span>
+            <span class="night__go">Voir le programme →</span>
+          </a>
+        </li>
+        <li class="night" data-show="final">
+          <a class="night__link" href="#jour-final">
+            <span class="night__num" aria-hidden="true">04</span>
+            <img class="night__logo" src="img/final-chapter-logo.svg" alt="Final Chapter" width="400" height="260">
+            <span class="night__date">Dimanche 4 avril</span>
+            <span class="night__tag">Tout se termine ici.</span>
+            <span class="night__go">Voir le programme →</span>
+          </a>
+        </li>
+      </ol>
+      <div class="hero__ropes" aria-hidden="true"></div>
+    </section>
+
+    <!-- Bandeau décoratif (masqué des lecteurs d'écran) -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span>Prelude to Chaos</span><span>/</span><span>Rising Empire</span><span>/</span><span>Final Chapter</span>
+      </div>
+    </div>
+
+    <div class="container">
+      <section id="federation" class="section about" aria-labelledby="federation-titre">
+        <div class="about__text">
+          <p class="eyebrow">La fédération</p>
+          <h2 id="federation-titre">Le catch,<br><span class="outline-text">sans filtre.</span></h2>
+          <p>BOOKER Wrestling, c'est une fédération, un roster et une saison qui s'écrit soir après soir. Des rivalités qui s'installent, des ceintures qui changent de mains, un public qui fait et défait les carrières.</p>
+          <p>Chaque année, la saison se referme sur la Semaine Finale : trois nuits, trois shows, trois identités, et un seul champion qui sort du ring avec l'or.</p>
+        </div>
+        <dl class="about__stats">
+          <div class="stat"><dt>Shows</dt><dd>3</dd></div>
+          <div class="stat"><dt>Ceintures</dt><dd>2</dd></div>
+          <div class="stat"><dt>Nuits</dt><dd>3</dd></div>
+          <div class="stat"><dt>Champion</dt><dd>1</dd></div>
+        </dl>
+      </section>
+
+      <section id="programme" class="section programme" aria-labelledby="programme-titre">
+        <h2 id="programme-titre">Programme des trois nuits</h2>
+        <p class="programme__intro">8 combats vendredi, 8 samedi et 10 dimanche, dans l'ordre du show. Les six ceintures sont défendues chaque soir, avec des stipulations qui changent tout. (c) = champion ou championne en titre. « Vainqueur du match » : le challenger est désigné par un combat de la veille.</p>
+      <section class="day" data-show="prelude" aria-labelledby="jour-prelude">
+        <h3 class="day__title" id="jour-prelude">
+          <img src="img/prelude-to-chaos-logo.svg" alt="Prelude to Chaos" width="400" height="260">
+          <span class="day__date">Vendredi 2 avril</span>
+        </h3>
+        <p class="day__tagline">Le calme avant la tempête.</p>
+        <ul class="day__slots">
+          <li class="slot">
+            <p class="slot__title">Kevin Owens vs Sami Zayn</p>
+            <p class="slot__tag">Match · <span class="slot__stip">Street Fight</span></p>
+            <p class="slot__note">Le vainqueur défie Seth Rollins demain pour le titre intermédiaire.</p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Jamie Hayter vs Virginie Hayenne-Cuvillon</p>
+            <p class="slot__tag">Match · <span class="slot__stip">Falls Count Anywhere</span></p>
+            <p class="slot__note">La gagnante défie Rhea Ripley demain pour le titre féminin.</p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Women's Tag Team Championship : Bianca Belair et Becky Lynch (c) vs Toni Storm et Mercedes Moné</p>
+            <p class="slot__tag">Titre féminin par équipes · <span class="slot__stip">Tables Match</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Tag Team Championship : Jey Uso et Sheamus (c) vs Bron Breakker et Gunther</p>
+            <p class="slot__tag">Titre par équipes · <span class="slot__stip">Tornado Tag</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Intercontinental Championship : Seth Rollins (c) vs Drew McIntyre</p>
+            <p class="slot__tag">Titre intermédiaire · <span class="slot__stip">Last Man Standing</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Women's Championship : Rhea Ripley (c) vs Charlotte Flair</p>
+            <p class="slot__tag">Titre féminin · <span class="slot__stip">Submission Match</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">IUT de Lens Undisputed Championship : Gilles Audemard (c) vs Le Détrompeur de la salle 103F</p>
+            <p class="slot__tag">Titre · <span class="slot__stip">Ladder Match</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Universal Championship : Roman Reigns (c) vs CM Punk</p>
+            <p class="slot__tag">Main event · <span class="slot__stip">Steel Cage</span></p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="day" data-show="rising" aria-labelledby="jour-rising">
+        <h3 class="day__title" id="jour-rising">
+          <img src="img/rising-empire-logo.svg" alt="Rising Empire" width="400" height="260">
+          <span class="day__date">Samedi 3 avril</span>
+        </h3>
+        <p class="day__tagline">Un empire se bâtit sous les yeux du monde.</p>
+        <ul class="day__slots">
+          <li class="slot">
+            <p class="slot__title">Randy Orton vs AJ Styles</p>
+            <p class="slot__tag">Match · <span class="slot__stip">No Disqualification</span></p>
+            <p class="slot__note">Le vainqueur défie Gilles Audemard demain pour le titre IUT de Lens.</p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Chris Jericho et MJF vs Hangman Page et Swerve Strickland</p>
+            <p class="slot__tag">Tag team · <span class="slot__stip">Hardcore Rules</span></p>
+            <p class="slot__note">Les vainqueurs défient Jey Uso et Sheamus demain pour les titres par équipes.</p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Women's Tag Team Championship : Bianca Belair et Becky Lynch (c) vs Charlotte Flair et Toni Storm</p>
+            <p class="slot__tag">Titre féminin par équipes · <span class="slot__stip">Steel Cage</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Tag Team Championship : Jey Uso et Sheamus (c) vs Darby Allin et Will Ospreay</p>
+            <p class="slot__tag">Titre par équipes · <span class="slot__stip">Stretcher Match</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Intercontinental Championship : Seth Rollins (c) vs Vainqueur du match Kevin Owens vs Sami Zayn</p>
+            <p class="slot__tag">Titre intermédiaire · <span class="slot__stip">No Disqualification</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Women's Championship : Rhea Ripley (c) vs Vainqueur du match Jamie Hayter vs Virginie Hayenne-Cuvillon</p>
+            <p class="slot__tag">Titre féminin · <span class="slot__stip">I Quit Match</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">IUT de Lens Undisputed Championship : Gilles Audemard (c) vs Lucas Ternel</p>
+            <p class="slot__tag">Titre · <span class="slot__stip">Iron Man 30 minutes</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Universal Championship : Roman Reigns (c) vs Cody Rhodes</p>
+            <p class="slot__tag">Main event · <span class="slot__stip">Hell in a Cell</span></p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="day" data-show="final" aria-labelledby="jour-final">
+        <h3 class="day__title" id="jour-final">
+          <img src="img/final-chapter-logo.svg" alt="Final Chapter" width="400" height="260">
+          <span class="day__date">Dimanche 4 avril</span>
+        </h3>
+        <p class="day__tagline">Tout se termine ici.</p>
+        <ul class="day__slots">
+          <li class="slot">
+            <p class="slot__title">Kenny Omega et Le Détrompeur de la salle 103F vs Jon Moxley et Sébastien Tabary</p>
+            <p class="slot__tag">Tag team · <span class="slot__stip">Hardcore Rules</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Vincent Dubois vs Kevin Owens</p>
+            <p class="slot__tag">Match · <span class="slot__stip">Submission Only</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">John Cena vs Rey Mysterio</p>
+            <p class="slot__tag">Match · <span class="slot__stip">Casket Match</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Toni Storm vs Charlotte Flair</p>
+            <p class="slot__tag">Match · <span class="slot__stip">Falls Count Anywhere</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Women's Tag Team Championship : Bianca Belair et Becky Lynch (c) vs Jamie Hayter et Virginie Hayenne-Cuvillon</p>
+            <p class="slot__tag">Titre féminin par équipes · <span class="slot__stip">Last Team Standing</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Tag Team Championship : Jey Uso et Sheamus (c) vs Vainqueurs du match Chris Jericho et MJF vs Hangman Page et Swerve Strickland</p>
+            <p class="slot__tag">Titre par équipes · <span class="slot__stip">Ladder Match</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Intercontinental Championship : Seth Rollins (c) vs Gunther</p>
+            <p class="slot__tag">Titre intermédiaire · <span class="slot__stip">Falls Count Anywhere</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Women's Championship : Rhea Ripley (c) vs Mercedes Moné</p>
+            <p class="slot__tag">Titre féminin · <span class="slot__stip">Steel Cage</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">IUT de Lens Undisputed Championship : Gilles Audemard (c) vs Vainqueur du match Randy Orton vs AJ Styles</p>
+            <p class="slot__tag">Titre · <span class="slot__stip">Tables, Ladders &amp; Chairs</span></p>
+          </li>
+          <li class="slot">
+            <p class="slot__title">Booker Universal Championship : Roman Reigns (c) vs Lucas Ternel, le dernier chapitre</p>
+            <p class="slot__tag">Main event · <span class="slot__stip">Last Man Standing</span></p>
+          </li>
+        </ul>
+      </section>
+
+      </section>
+
+      <section id="titres" class="section titles" aria-labelledby="titres-titre">
+        <h2 id="titres-titre">Six ceintures,<br><span class="outline-text">trois nuits.</span></h2>
+        <div class="titles__belts">
+          <figure class="belt">
+            <img src="img/ceinture-booker.webp" alt="Ceinture Booker Universal Championship : plaque dorée gravée du logo BOOKER sur sangle noire" width="1000" height="496" loading="lazy">
+            <figcaption>Booker Universal Championship <span>Titre mondial · défendue les 3 nuits · champion : Roman Reigns</span></figcaption>
+          </figure>
+          <figure class="belt">
+            <img src="img/ceinture-iut.webp" alt="Ceinture IUT de Lens Undisputed Championship : plaque dorée sur sangle bleue" width="1000" height="496" loading="lazy">
+            <figcaption>IUT de Lens Undisputed Championship <span>Titre IUT · défendue les 3 nuits · champion : Gilles Audemard</span></figcaption>
+          </figure>
+        </div>
+        <ul class="titles__more" aria-label="Les autres ceintures">
+          <li class="plate">
+            <p class="plate__kind">Titre intermédiaire</p>
+            <h3 class="plate__name">Booker Intercontinental Championship</h3>
+            <p class="plate__champ">Champion : Seth Rollins</p>
+          </li>
+          <li class="plate">
+            <p class="plate__kind">Titre féminin</p>
+            <h3 class="plate__name">Booker Women's Championship</h3>
+            <p class="plate__champ">Championne : Rhea Ripley</p>
+          </li>
+          <li class="plate">
+            <p class="plate__kind">Titres par équipes</p>
+            <h3 class="plate__name">Booker Tag Team Championship</h3>
+            <p class="plate__champ">Champions : Jey Uso et Sheamus</p>
+          </li>
+          <li class="plate">
+            <p class="plate__kind">Titres féminins par équipes</p>
+            <h3 class="plate__name">Booker Women's Tag Team Championship</h3>
+            <p class="plate__champ">Championnes : Bianca Belair et Becky Lynch</p>
+          </li>
+        </ul>
+        <aside class="titles__champion" aria-label="Champion en titre">
+          <p class="eyebrow">Champion en titre</p>
+        <article class="card">
+          <div class="card__media card__media--real">
+            <span class="card__tag">Heel</span>
+            <img src="img/lutteurs/roman-reigns.webp" alt="Portrait de Roman Reigns" width="545" height="700" loading="lazy">
+          </div>
+          <h3 class="card__name">Roman Reigns</h3>
+          <p class="card__role">Prelude to Chaos</p>
+          <p class="card__bio">Le champion absolu. Il entre dans le ring comme chez lui et ne repart jamais sans l'or.</p>
+          <dl class="card__stats">
+            <div><dt>Popularité</dt><dd><meter min="0" max="100" value="95">95 sur 100</meter></dd></div>
+            <div><dt>Momentum</dt><dd><meter min="0" max="100" value="88">88 sur 100</meter></dd></div>
+            <div><dt>Talent</dt><dd><meter min="0" max="100" value="92">92 sur 100</meter></dd></div>
+          </dl>
+          <a class="card__link" href="#lutteurs" aria-label="Voir les matchs de Roman Reigns">Voir ses matchs</a>
+        </article>
+        </aside>
+      </section>
+
+      <section id="lutteurs" class="section speakers" aria-labelledby="lutteurs-titre">
+        <p class="eyebrow">Le roster</p>
+        <h2 id="lutteurs-titre">Les lutteurs</h2>
+        <div class="speakers__grid">
+        <article class="card">
+          <div class="card__media card__media--real">
+            <span class="card__tag">Heel</span>
+            <img src="img/lutteurs/roman-reigns.webp" alt="Portrait de Roman Reigns" width="545" height="700" loading="lazy">
+          </div>
+          <h3 class="card__name">Roman Reigns</h3>
+          <p class="card__role">Prelude to Chaos</p>
+          <p class="card__bio">Le champion absolu. Il entre dans le ring comme chez lui et ne repart jamais sans l'or.</p>
+          <dl class="card__stats">
+            <div><dt>Popularité</dt><dd><meter min="0" max="100" value="95">95 sur 100</meter></dd></div>
+            <div><dt>Momentum</dt><dd><meter min="0" max="100" value="88">88 sur 100</meter></dd></div>
+            <div><dt>Talent</dt><dd><meter min="0" max="100" value="92">92 sur 100</meter></dd></div>
+          </dl>
+          <a class="card__link" href="#programme" aria-label="Voir les matchs de Roman Reigns">Voir ses matchs</a>
+        </article>
+        <article class="card">
+          <div class="card__media card__media--real">
+            <span class="card__tag">Face</span>
+            <img src="img/lutteurs/cody-rhodes.webp" alt="Portrait de Cody Rhodes" width="561" height="700" loading="lazy">
+          </div>
+          <h3 class="card__name">Cody Rhodes</h3>
+          <p class="card__role">Rising Empire</p>
+          <p class="card__bio">Le challenger du peuple : il a fini l'histoire que son nom lui imposait.</p>
+          <dl class="card__stats">
+            <div><dt>Popularité</dt><dd><meter min="0" max="100" value="90">90 sur 100</meter></dd></div>
+            <div><dt>Momentum</dt><dd><meter min="0" max="100" value="86">86 sur 100</meter></dd></div>
+            <div><dt>Talent</dt><dd><meter min="0" max="100" value="88">88 sur 100</meter></dd></div>
+          </dl>
+          <a class="card__link" href="#programme" aria-label="Voir les matchs de Cody Rhodes">Voir ses matchs</a>
+        </article>
+        <article class="card">
+          <div class="card__media card__media--real">
+            <span class="card__tag">Face</span>
+            <img src="img/lutteurs/cm-punk.webp" alt="Portrait de CM Punk" width="567" height="700" loading="lazy">
+          </div>
+          <h3 class="card__name">CM Punk</h3>
+          <p class="card__role">Prelude to Chaos</p>
+          <p class="card__bio">Un micro, une opinion, aucun filtre. Il revient toujours quand on ne l'attend plus.</p>
+          <dl class="card__stats">
+            <div><dt>Popularité</dt><dd><meter min="0" max="100" value="88">88 sur 100</meter></dd></div>
+            <div><dt>Momentum</dt><dd><meter min="0" max="100" value="80">80 sur 100</meter></dd></div>
+            <div><dt>Talent</dt><dd><meter min="0" max="100" value="90">90 sur 100</meter></dd></div>
+          </dl>
+          <a class="card__link" href="#programme" aria-label="Voir les matchs de CM Punk">Voir ses matchs</a>
+        </article>
+        <article class="card">
+          <div class="card__media card__media--real">
+            <span class="card__tag">Heel</span>
+            <img src="img/lutteurs/rhea-ripley.webp" alt="Portrait de Rhea Ripley" width="700" height="691" loading="lazy">
+          </div>
+          <h3 class="card__name">Rhea Ripley</h3>
+          <p class="card__role">Rising Empire</p>
+          <p class="card__bio">La reine du chaos : puissance brute et regard qui glace les premiers rangs.</p>
+          <dl class="card__stats">
+            <div><dt>Popularité</dt><dd><meter min="0" max="100" value="86">86 sur 100</meter></dd></div>
+            <div><dt>Momentum</dt><dd><meter min="0" max="100" value="84">84 sur 100</meter></dd></div>
+            <div><dt>Talent</dt><dd><meter min="0" max="100" value="87">87 sur 100</meter></dd></div>
+          </dl>
+          <a class="card__link" href="#programme" aria-label="Voir les matchs de Rhea Ripley">Voir ses matchs</a>
+        </article>
+        <article class="card">
+          <div class="card__media card__media--real">
+            <span class="card__tag">Heel</span>
+            <img src="img/lutteurs/kenny-omega.webp" alt="Portrait de Kenny Omega" width="438" height="658" loading="lazy">
+          </div>
+          <h3 class="card__name">Kenny Omega</h3>
+          <p class="card__role">Final Chapter</p>
+          <p class="card__bio">Le meilleur technicien de la fédération, et il aime que ça se sache.</p>
+          <dl class="card__stats">
+            <div><dt>Popularité</dt><dd><meter min="0" max="100" value="84">84 sur 100</meter></dd></div>
+            <div><dt>Momentum</dt><dd><meter min="0" max="100" value="76">76 sur 100</meter></dd></div>
+            <div><dt>Talent</dt><dd><meter min="0" max="100" value="95">95 sur 100</meter></dd></div>
+          </dl>
+          <a class="card__link" href="#programme" aria-label="Voir les matchs de Kenny Omega">Voir ses matchs</a>
+        </article>
+        <article class="card">
+          <div class="card__media card__media--real">
+            <span class="card__tag">Face</span>
+            <img src="img/lutteurs/jon-moxley.webp" alt="Portrait de Jon Moxley" width="544" height="700" loading="lazy">
+          </div>
+          <h3 class="card__name">Jon Moxley</h3>
+          <p class="card__role">Final Chapter</p>
+          <p class="card__bio">Combat de rue en costume de ring. Pas de règles qu'il ne puisse tordre.</p>
+          <dl class="card__stats">
+            <div><dt>Popularité</dt><dd><meter min="0" max="100" value="85">85 sur 100</meter></dd></div>
+            <div><dt>Momentum</dt><dd><meter min="0" max="100" value="82">82 sur 100</meter></dd></div>
+            <div><dt>Talent</dt><dd><meter min="0" max="100" value="86">86 sur 100</meter></dd></div>
+          </dl>
+          <a class="card__link" href="#programme" aria-label="Voir les matchs de Jon Moxley">Voir ses matchs</a>
+        </article>
+        <article class="card">
+          <div class="card__media card__media--portrait card__media--gilles-audemard" aria-hidden="true">
+            <span class="card__tag">Face</span>
+          </div>
+          <h3 class="card__name">Gilles Audemard</h3>
+          <p class="card__role">Rising Empire</p>
+          <p class="card__bio">Le champion de l'IUT de Lens. Sa défense est un cours magistral que personne n'a encore percé.</p>
+          <dl class="card__stats">
+            <div><dt>Popularité</dt><dd><meter min="0" max="100" value="80">80 sur 100</meter></dd></div>
+            <div><dt>Momentum</dt><dd><meter min="0" max="100" value="78">78 sur 100</meter></dd></div>
+            <div><dt>Talent</dt><dd><meter min="0" max="100" value="90">90 sur 100</meter></dd></div>
+          </dl>
+          <a class="card__link" href="#programme" aria-label="Voir les matchs de Gilles Audemard">Voir ses matchs</a>
+        </article>
+        <article class="card">
+          <div class="card__media card__media--portrait card__media--vincent-dubois" aria-hidden="true">
+            <span class="card__tag">Face</span>
+          </div>
+          <h3 class="card__name">Vincent Dubois</h3>
+          <p class="card__role">Prelude to Chaos</p>
+          <p class="card__bio">Méthodique et imprévisible : il lit ses adversaires comme un énoncé de projet, et ne monte jamais sur le ring sans sa tasse antique, brandie comme une relique.</p>
+          <dl class="card__stats">
+            <div><dt>Popularité</dt><dd><meter min="0" max="100" value="72">72 sur 100</meter></dd></div>
+            <div><dt>Momentum</dt><dd><meter min="0" max="100" value="82">82 sur 100</meter></dd></div>
+            <div><dt>Talent</dt><dd><meter min="0" max="100" value="84">84 sur 100</meter></dd></div>
+          </dl>
+          <a class="card__link" href="#programme" aria-label="Voir les matchs de Vincent Dubois">Voir ses matchs</a>
+        </article>
+        <article class="card">
+          <div class="card__media card__media--portrait card__media--sebastien-tabary" aria-hidden="true">
+            <span class="card__tag">Face</span>
+          </div>
+          <h3 class="card__name">Sébastien Tabary</h3>
+          <p class="card__role">Final Chapter</p>
+          <p class="card__bio">Le maître des réseaux : il route ses prises de soumission sans perdre un paquet, et nul adversaire ne passe son pare-feu.</p>
+          <dl class="card__stats">
+            <div><dt>Popularité</dt><dd><meter min="0" max="100" value="70">70 sur 100</meter></dd></div>
+            <div><dt>Momentum</dt><dd><meter min="0" max="100" value="72">72 sur 100</meter></dd></div>
+            <div><dt>Talent</dt><dd><meter min="0" max="100" value="82">82 sur 100</meter></dd></div>
+          </dl>
+          <a class="card__link" href="#programme" aria-label="Voir les matchs de Sébastien Tabary">Voir ses matchs</a>
+        </article>
+        <article class="card">
+          <div class="card__media card__media--portrait card__media--virginie-hayenne-cuvillon" aria-hidden="true">
+            <span class="card__tag">Face</span>
+          </div>
+          <h3 class="card__name">Virginie Hayenne-Cuvillon</h3>
+          <p class="card__role">Rising Empire</p>
+          <p class="card__bio">Précise, rapide, redoutable dans les prises au sol. Elle ne laisse rien au hasard.</p>
+          <dl class="card__stats">
+            <div><dt>Popularité</dt><dd><meter min="0" max="100" value="74">74 sur 100</meter></dd></div>
+            <div><dt>Momentum</dt><dd><meter min="0" max="100" value="70">70 sur 100</meter></dd></div>
+            <div><dt>Talent</dt><dd><meter min="0" max="100" value="88">88 sur 100</meter></dd></div>
+          </dl>
+          <a class="card__link" href="#programme" aria-label="Voir les matchs de Virginie Hayenne-Cuvillon">Voir ses matchs</a>
+        </article>
+        <article class="card">
+          <div class="card__media card__media--portrait card__media--lucas-ternel" aria-hidden="true">
+            <span class="card__tag">Face</span>
+          </div>
+          <h3 class="card__name">Lucas Ternel</h3>
+          <p class="card__role">Final Chapter · main event</p>
+          <p class="card__bio">Le fondateur de BOOKER monte sur le ring : dimanche, il défie Roman Reigns pour le titre suprême.</p>
+          <dl class="card__stats">
+            <div><dt>Popularité</dt><dd><meter min="0" max="100" value="68">68 sur 100</meter></dd></div>
+            <div><dt>Momentum</dt><dd><meter min="0" max="100" value="90">90 sur 100</meter></dd></div>
+            <div><dt>Talent</dt><dd><meter min="0" max="100" value="80">80 sur 100</meter></dd></div>
+          </dl>
+          <a class="card__link" href="#programme" aria-label="Voir les matchs de Lucas Ternel">Voir ses matchs</a>
+        </article>
+        <article class="card">
+          <div class="card__media card__media--photo">
+            <span class="card__tag">Heel</span>
+            <img src="img/detrompeur.webp" alt="Le Détrompeur de la salle 103F : pièce de plastique rouge à trois trous, sur un fond noir frappé du logo BOOKER" width="266" height="324" loading="lazy">
+          </div>
+          <h3 class="card__name">Le Détrompeur de la salle 103F</h3>
+          <p class="card__role">Final Chapter</p>
+          <p class="card__bio">Petit, rouge et têtu. Il s'impose partout où on essaie de le brancher.</p>
+          <dl class="card__stats">
+            <div><dt>Popularité</dt><dd><meter min="0" max="100" value="60">60 sur 100</meter></dd></div>
+            <div><dt>Momentum</dt><dd><meter min="0" max="100" value="66">66 sur 100</meter></dd></div>
+            <div><dt>Talent</dt><dd><meter min="0" max="100" value="70">70 sur 100</meter></dd></div>
+          </dl>
+          <a class="card__link" href="#programme" aria-label="Voir les matchs de Le Détrompeur de la salle 103F">Voir ses matchs</a>
+        </article>
+        </div>
+        <div class="roster-more">
+          <h3>Et aussi sur les trois nuits</h3>
+          <ul class="chips">
+            <li>John Cena</li>
+            <li>Seth Rollins</li>
+            <li>Randy Orton</li>
+            <li>Drew McIntyre</li>
+            <li>Kevin Owens</li>
+            <li>Sami Zayn</li>
+            <li>Bianca Belair</li>
+            <li>Charlotte Flair</li>
+            <li>Becky Lynch</li>
+            <li>Rey Mysterio</li>
+            <li>Bron Breakker</li>
+            <li>Gunther</li>
+            <li>Jey Uso</li>
+            <li>Sheamus</li>
+            <li>AJ Styles</li>
+            <li>Hangman Page</li>
+            <li>Swerve Strickland</li>
+            <li>Will Ospreay</li>
+            <li>Mercedes Moné</li>
+            <li>Toni Storm</li>
+            <li>Jamie Hayter</li>
+            <li>Darby Allin</li>
+            <li>Chris Jericho</li>
+            <li>MJF</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="billetterie" class="section" aria-labelledby="billetterie-titre">
+        <h2 id="billetterie-titre">Billetterie</h2>
+        <div class="offers">
+          <article class="offer">
+            <h3>Pass soirée</h3>
+            <p class="offer__price">25 €</p>
+            <ul class="offer__list">
+              <li>Une nuit au choix</li>
+              <li>Place en tribune</li>
+              <li>Bracelet collector</li>
+            </ul>
+            <a class="btn" href="reservation.html#pass-soiree" aria-label="Choisir le Pass soirée">Choisir</a>
+          </article>
+          <article class="offer">
+            <p class="offer__badge">Le plus choisi</p>
+            <h3>Pass 3 nuits</h3>
+            <p class="offer__price">59 €</p>
+            <ul class="offer__list">
+              <li>Prelude to Chaos, Rising Empire et Final Chapter</li>
+              <li>Place en tribune</li>
+              <li>Affiche des trois shows</li>
+            </ul>
+            <a class="btn" href="reservation.html#pass-3nuits" aria-label="Choisir le Pass 3 nuits">Choisir</a>
+          </article>
+          <article class="offer">
+            <h3>Pass Ringside</h3>
+            <p class="offer__price">120 €</p>
+            <ul class="offer__list">
+              <li>Les 3 nuits au bord du ring</li>
+              <li>Photo avec un lutteur</li>
+              <li>Entrée prioritaire</li>
+            </ul>
+            <a class="btn" href="reservation.html#pass-ringside" aria-label="Choisir le Pass Ringside">Choisir</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="actus" class="section" aria-labelledby="actus-titre">
+        <p class="eyebrow">Les coulisses</p>
+        <h2 id="actus-titre">Actualités</h2>
+        <div class="news">
+          <article class="post">
+            <p class="post__meta"><time datetime="2026-11-10">10/11/2026</time> <span>Rising Empire</span></p>
+            <h3 class="post__title">Cody Rhodes défiera Roman Reigns samedi</h3>
+            <p>Le choc est officiel : le challenger du peuple tente de décrocher la ceinture suprême devant le public de Lens.</p>
+          </article>
+          <article class="post">
+            <p class="post__meta"><time datetime="2026-11-06">06/11/2026</time> <span>Tous les shows</span></p>
+            <h3 class="post__title">Les six ceintures seront défendues chacune des trois nuits</h3>
+            <p>Titres mondial, intermédiaire, féminins et par équipes : chaque champion remet sa ceinture en jeu vendredi, samedi et dimanche.</p>
+          </article>
+          <article class="post">
+            <p class="post__meta"><time datetime="2026-11-02">02/11/2026</time> <span>Final Chapter</span></p>
+            <h3 class="post__title">Lucas Ternel en main event du dernier chapitre</h3>
+            <p>Dimanche 4 avril, le fondateur de BOOKER défie Roman Reigns pour la ceinture suprême, dans un Last Man Standing. Les places partent vite.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="faq" class="section" aria-labelledby="faq-titre">
+        <h2 id="faq-titre">Questions fréquentes</h2>
+        <div class="faq__list">
+          <details class="faq-item"><summary>À quelle heure commencent les shows ?</summary><p>Les portes ouvrent à 18 h 15, le premier match démarre à 19 h chaque soir.</p></details>
+          <details class="faq-item"><summary>Puis-je revendre mon billet ?</summary><p>Oui, via la page de revente officielle, au prix payé, jusqu'à 24 h avant le show.</p></details>
+          <details class="faq-item"><summary>Les enfants sont-ils admis ?</summary><p>Dès 8 ans, accompagnés d'un adulte. Les matchs peuvent être impressionnants.</p></details>
+          <details class="faq-item"><summary>La salle est-elle accessible ?</summary><p>Oui, des places pour fauteuils roulants et un accompagnement sont prévus. Contactez-nous pour les réserver.</p></details>
+          <details class="faq-item"><summary>Comment venir à l'Arena Booker ?</summary><p>À 5 minutes à pied de la gare de Lens, avec un parking de 800 places.</p></details>
+        </div>
+      </section>
+    </div>
+
+    <!-- Inscription newsletter : sans JS, la confirmation s'affiche via :target -->
+    <section class="newsletter" id="newsletter" aria-labelledby="newsletter-titre">
+      <div class="container newsletter__inner">
+        <div>
+          <h2 id="newsletter-titre">Ton nom<br>sur l'affiche.</h2>
+          <p>Les annonces de matchs et l'ouverture de la billetterie, directement dans ta boîte mail.</p>
+        </div>
+        <form class="newsletter__form" method="get" action="index.html#inscrit">
+          <label class="field newsletter__field">Adresse e-mail <input type="email" name="email" autocomplete="email" required></label>
+          <button class="btn btn--light" type="submit">Je m'inscris</button>
+        </form>
+        <p class="newsletter__ok" id="inscrit" role="status">Merci ! Tu recevras les prochaines annonces de BOOKER.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__top">
+      <a class="site-footer__logo" href="#top" aria-label="BOOKER Wrestling, retour à l'accueil">
+        <img src="img/booker-logo.svg" alt="" width="172" height="80">
+      </a>
+      <p class="site-footer__tagline">Le catch,<br>sans filtre.</p>
+      <a class="btn btn--light" href="reservation.html">Réserver ma place</a>
+    </div>
+
+    <div class="container site-footer__grid">
+      <nav aria-label="Navigation du site">
+        <h2>Le site</h2>
+        <ul>
+          <li><a href="#federation">La fédération</a></li>
+          <li><a href="#programme">Programme</a></li>
+          <li><a href="#titres">Les ceintures</a></li>
+          <li><a href="#lutteurs">Les lutteurs</a></li>
+          <li><a href="#billetterie">Billetterie</a></li>
+          <li><a href="#actus">Actualités</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Informations pratiques">
+        <h2>Infos</h2>
+        <ul>
+          <li><a href="reservation.html">Réserver mes places</a></li>
+          <li><a href="infos-pratiques.html">Infos pratiques</a></li>
+          <li><a href="cgv.html">Conditions de vente</a></li>
+          <li><a href="credits.html">Crédits (images et polices)</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:billeterie.booker@lucasternel.com">billeterie.booker@lucasternel.com</a></li>
+          <li>Arena Booker, 1 rue du Ring, 62300 Lens</li>
+        </ul>
+        <ul class="social" aria-label="Réseaux sociaux">
+          <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram (s'ouvre dans un nouvel onglet)">Instagram</a></li>
+          <li><a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube (s'ouvre dans un nouvel onglet)">YouTube</a></li>
+          <li><a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X (s'ouvre dans un nouvel onglet)">X</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container site-footer__bottom">
+      <p>© 2026 BOOKER Wrestling · Événement fictif — projet étudiant, module CSS avancé.</p>
+      <nav aria-label="Informations légales">
+        <ul class="legal-nav__list">
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><a href="confidentialite.html">Confidentialité</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+          <li><a href="accessibilite.html">Accessibilité</a></li>
+          <li><a href="credits.html">Crédits</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=f36d57df" defer></script>
+</body>
+</html>

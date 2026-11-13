@@ -1,0 +1,291 @@
+/* ==========================================================================
+   layout.css — Layer « layout » : MISE EN PAGE (conteneur, grilles, en-tête,
+   footer). Mobile-first : base = 320 px, puis @media (width >= …).
+   ========================================================================== */
+
+@layer layout {
+  .container {
+    inline-size: min(100% - 2 * var(--space-4), 72rem);
+    margin-inline: auto;
+  }
+
+  .section {
+    padding-block: var(--space-section);
+  }
+
+  /* ---------- En-tête : Flexbox (exigence 2) ------------------------- */
+  /* Ancre de l'en-tête : le menu mobile se cale exactement sous lui, quelle que soit
+     sa hauteur (texte agrandi…). Amélioration progressive ; repli : --header-height. */
+  @supports (anchor-name: --site-header) {
+    .site-header {
+      anchor-name: --site-header;
+    }
+  }
+
+  .site-header {
+    --header-height: 4.1rem;   /* hauteur de l'en-tête : le menu mobile se cale dessous */
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+    padding: var(--space-2) var(--space-4);
+    background-color: var(--color-header-bg);
+    color: var(--color-on-header-bg);
+    border-block-end: 1px solid var(--color-header-line);
+
+    @media (width >= 48rem) {
+      padding-inline: var(--space-8);
+    }
+  }
+
+  /* ---------- Hero plein écran : titre + triptyque des 3 nuits ---------- */
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-color: var(--color-stage);
+    color: var(--color-on-stage);
+  }
+
+  .hero__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);   /* colonne qui peut rétrécir : jamais de débordement */
+    gap: var(--space-6);
+    padding-block: var(--space-12) var(--space-8);
+    grid-template-areas:
+      "intro"
+      "titre"
+      "cote";
+
+    @media (width >= 48rem) {
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas:
+        "intro intro"
+        "titre cote";
+      align-items: end;
+    }
+  }
+
+  .hero__eyebrow { grid-area: intro; }
+  .hero__title { grid-area: titre; }
+  .hero__side { grid-area: cote; }
+
+  /* Les 3 nuits : empilées sur mobile, côte à côte et obliques sur desktop */
+  .triptych {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media (width >= 64rem) {
+      flex-direction: row;
+      gap: 0;
+      padding-inline: var(--space-6);
+    }
+  }
+
+  /* ---------- Programme : grid-template-areas (exigence 2) ------------ */
+  .programme {
+    display: grid;
+    /* Pleine largeur : le programme sort du conteneur et prend toute la place */
+    inline-size: 100vw;
+    margin-inline: calc(50% - 50vw);
+    padding-inline: var(--space-gutter);
+    grid-template-columns: minmax(0, 1fr);   /* colonne qui peut rétrécir : jamais de débordement */
+    gap: var(--space-6);
+    grid-template-areas:
+      "titre"
+      "intro"
+      "jour1"
+      "jour2"
+      "jour3";
+
+    @media (width >= 64rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-areas:
+        "titre titre titre"
+        "intro intro intro"
+        "jour1 jour2 jour3";
+    }
+
+    & > h2 { grid-area: titre; }
+    & > .day:nth-of-type(1) { grid-area: jour1; }
+    & > .day:nth-of-type(2) { grid-area: jour2; }
+    & > .day:nth-of-type(3) { grid-area: jour3; }
+  }
+
+  /* Colonnes de la soirée : heure | titre (| type). Les créneaux les
+     héritent par SUBGRID (components.css) → alignement parfait. */
+  .day__slots {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--space-3);
+  }
+
+  /* ---------- Ceintures : zones nommées ---------------------------------- */
+  .titles {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);   /* colonne qui peut rétrécir : jamais de débordement */
+    gap: var(--space-8);
+    grid-template-areas:
+      "titre"
+      "belts"
+      "champion"
+      "autres";
+
+    @media (width >= 64rem) {
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      grid-template-areas:
+        "titre titre"
+        "belts champion"
+        "autres autres";
+      align-items: center;
+    }
+
+    & > h2 { grid-area: titre; }
+  }
+
+  .titles__belts {
+    grid-area: belts;
+    display: grid;
+    gap: var(--space-8);
+    padding-block: var(--space-8);
+
+    & .belt:nth-child(2) {
+      @media (width >= 48rem) {
+        margin-inline-start: 18%;
+        margin-block-start: -2rem;
+      }
+    }
+  }
+
+  .titles__more {
+    grid-area: autres;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Contexte ÉTROIT de la container query (carte du champion) */
+  .titles__champion {
+    grid-area: champion;
+    display: grid;                      /* la carte (subgrid) a besoin d'une grille parente */
+    container: speakers / inline-size;
+  }
+
+  /* ---------- Lutteurs : grille + conteneur de requête ---------------- */
+  .speakers {
+    container: speakers / inline-size; /* exigence 3 */
+  }
+
+  .speakers__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: var(--space-6);
+  }
+
+  /* ---------- Billetterie --------------------------------------------- */
+  .offers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: var(--space-6);
+    align-items: stretch;
+  }
+
+  /* ---------- FAQ ----------------------------------------------------- */
+  .faq__list {
+    display: grid;
+    gap: var(--space-3);
+    max-inline-size: 52rem;
+  }
+
+  /* ---------- Footer : marque, 3 colonnes, barre légale ------------------ */
+  .site-footer {
+    padding-block: var(--space-12) var(--space-6);
+    background-color: var(--color-header);
+    color: var(--color-on-header);
+  }
+
+  .site-footer__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4) var(--space-8);
+    padding-block-end: var(--space-8);
+    border-block-end: 1px solid var(--color-stage-line);
+  }
+
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+    padding-block: var(--space-8);
+
+    @media (width >= 48rem) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3) var(--space-8);
+    padding-block-start: var(--space-6);
+    border-block-start: 1px solid var(--color-stage-line);
+  }
+
+  /* ---------- Page de réservation : zones nommées ---------------------- */
+  .checkout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);   /* colonne qui peut rétrécir : jamais de débordement */
+    gap: var(--space-8);
+    grid-template-areas:
+      "intro"
+      "form";
+
+    @media (width >= 64rem) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+      grid-template-areas: "intro form";
+      align-items: start;
+    }
+
+    & > .checkout__intro { grid-area: intro; }
+    & > :is(.form, .thanks) { grid-area: form; }
+  }
+
+  /* ---------- La fédération : texte + chiffres (zones nommées) ----------- */
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);   /* évite qu'un enfant élargisse la colonne (zoom, texte agrandi) */
+    gap: var(--space-8);
+    grid-template-areas:
+      "texte"
+      "chiffres";
+
+    @media (width >= 64rem) {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      grid-template-areas: "texte chiffres";
+      align-items: center;
+    }
+
+    & > .about__text { grid-area: texte; }
+    & > .about__stats { grid-area: chiffres; }
+  }
+
+  .news {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: var(--space-6);
+  }
+}
